@@ -5,50 +5,51 @@ import React, { ChangeEvent, useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import { permanentRedirect, useRouter } from "next/navigation"
 
 interface AuthFormProps {
     isLoading: boolean;
-    isLogin: boolean;
-    loginData: { email: string; password: string };
-    setLoginData: React.Dispatch<React.SetStateAction<{ email: string; password: string }>>;
-    registerData: { email: string; password: string; displayName: string; };
-    setRegisterData: React.Dispatch<React.SetStateAction<{ email: string; password: string; displayName: string }>>;
-    handleLogin: () => void;
-    handleRegister: () => void;
+    handleLogin: (loginData: { email: string; password: string; }) => void;
     handleGoogleLogin: () => void;
-    handleToggle: () => void;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({
     isLoading,
-    isLogin,
-    loginData,
-    setLoginData,
-    registerData,
-    setRegisterData,
     handleLogin,
-    handleRegister,
     handleGoogleLogin,
-    handleToggle
 }) => {
+    const router = useRouter();
+    const [loginData, setLoginData] = useState({ email: "", password: "" })
+
     const handleChange = (e: ChangeEvent<HTMLInputElement>, field: string) => {
-        if (isLogin) {
-            setLoginData({ ...loginData, [field]: e.target.value })
-        } else {
-            setRegisterData({ ...registerData, [field]: e.target.value })
-        }
-    };
+        setLoginData({ ...loginData, [field]: e.target.value })
+    }
+
+    const handleSubmit = () => {
+        handleLogin(loginData);
+        router.push("/register");
+    }
 
     return (
         <div className="flex h-svh w-4/12 ml-24 mr-8 items-center justify-center text-black dark:text-white">
-            <div className="flex flex-col items-center justify-center pt-0 pb-20 rounded-3xl h-3/5 w-8/12 ml-32 bg-gray-400 bg-clip-padding bg-opacity-10 shadow-2xl ">
+            <div className="flex flex-col items-center justify-center pt-0 pb-20 rounded-3xl h-3/5 w-8/12 ml-32 bg-white bg-clip-padding bg-opacity-10 shadow-2xl ">
                 <div className="flex items-center justify-center mt-8">
                     <h1 className="text-4xl font-semibold p-0 mb-6"> Welcome back!</h1>
                 </div>
                 <div className="flex flex-col min-w-80">
-                    <Input placeholder="Email" className="mb-2.5 bg-gray-200 dark:bg-white border border-gray-400 text-black" />
-                    <Input placeholder="Password" className="bg-gray-200 dark:bg-white border border-gray-400 text-black" />
-                    <Button variant={"default"} className="font-bold w-full mt-3.5 bg-purple-800 hover:bg-purple-700 text-lg text-white">
+                    <Input
+                        placeholder="Email"
+                        value={loginData.email}
+                        onChange={(e) => handleChange(e, "email")}
+                        className="mb-2.5 bg-gray-200 dark:bg-white border border-gray-400 text-black"
+                    />
+                    <Input
+                        placeholder="Password"
+                        value={loginData.password}
+                        onChange={(e) => handleChange(e, "password")}
+                        className="bg-gray-200 dark:bg-white border border-gray-400 text-black"
+                    />
+                    <Button variant={"default"} onClick={handleSubmit} className="font-bold w-full mt-3.5 bg-purple-800 hover:bg-purple-700 text-lg text-white">
                         Log in
                     </Button>
                     <Button variant={"link"}>

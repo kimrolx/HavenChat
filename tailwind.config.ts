@@ -19,6 +19,7 @@ const config = {
     },
     extend: {
       colors: {
+        'offwhite': '#F0F0F0',
         'nocturnalplum': '#080410',
         'midnightsea': '#092230',
         'cocoaspice': '#282622',

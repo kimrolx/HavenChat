@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google"
 import { cn } from "@/lib/utils"
 import "@/styles/globals.css"
-import { ThemeProvider } from "@/context/ThemeContext";
+import { ThemeProvider } from "@/providers/ThemeContext";
 
 const fontSans = FontSans({
     subsets: ["latin"],
@@ -23,7 +23,7 @@ export default function RootLayout({
         <html lang="en">
             <ThemeProvider>
                 <body className={cn(
-                    "min-h-screen bg-background font-sans antialiased bg-white dark:bg-nocturnalplum",
+                    "min-h-screen bg-background font-sans antialiased bg-offwhite dark:bg-nocturnalplum",
                     fontSans.variable
                 )}
                 >
