@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss"
 
 const config = {
-  darkMode: ["class"],
+  darkMode: 'class',
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -19,6 +19,9 @@ const config = {
     },
     extend: {
       colors: {
+        'nocturnalplum': '#080410',
+        'midnightsea': '#092230',
+        'cocoaspice': '#282622',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
